@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <script src="./listBySearch.js" defer></script>
+    <script src="./listByCategory.js" defer></script>
+    <title>API-SW</title>
+
+</head>
+<body>
+    <div>
+        <section id="logo-ctnr"><img src="./sw-web.png" alt="star wars logo" /> </section>
+        <section id="list-all-root-resource-btn-ctnr"></section>
+        <form class="inputForm">
+            <input class="inputField" type="text" placeholder="example: shmi" />
+            <button id="searchBtn" type="submit" class="searchButton">Search</button>
+        </form>
+    </div>
+
+    <ul id="clickToPaste" class="list-style-none flexRowWrap">
+        <span>paste to search bar :</span>
+        <li class="pasteToInputField ">Poggle</li>
+        <li class="pasteToInputField ">Solar</li>
+        <li class="pasteToInputField ">Geo</li>
+        <li class="pasteToInputField ">Skywalker</li>
+        <li class="pasteToInputField ">r2</li>
+        <li class="pasteToInputField ">fighter</li>
+        <li class="pasteToInputField ">yoda</li>
+        <li class="pasteToInputField ">ship</li>
+    </ul>
+    <h5>Star Wars API : <a href="https://swapi.dev/" target="_blank">https://swapi.dev/</a></h5>
+
+    <h3 id="user-msg"></h3>
+
+    <ul id="search-results"></ul>
+
+    <div class="results-card-ctnr">
+        <section class="results-card">
+            <section class="navBtn-ctnr">
+                <div id="prevBtn-ctnr"></div>
+                <div id="nextBtn-ctnr"></div>
+            </section>
+            <section class="card-infobox"></section>
+        </section>
+    </div>
+</body>
+</html>
+
