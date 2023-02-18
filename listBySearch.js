@@ -47,7 +47,7 @@ function searchRootResource(userInput) {
     fetch(base_url)
     .then((response) => response.json())
     .then((data) => wholeSearchAPI(data, userInput))
-    .catch((error) => printError(error))
+    .catch((error) => fetchAPIError(error))
 }
 function wholeSearchAPI(x, userInput) {
     user_msg.innerHTML = ""
@@ -79,9 +79,9 @@ function displaySearchResultInfo(r, d) {
         search_results.innerHTML += `<li><b> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </b>`
 
         console.log(r, d.count)
-        const results_card_ctnr = document.querySelector(".results-card-ctnr")
-        const results_cards = results_card_ctnr.querySelector(".results-card")
-        const card_infobox = results_cards.querySelector(".card-infobox") 
+        // const results_card_ctnr = document.querySelector(".results-card-ctnr")
+        // const results_cards = results_card_ctnr.querySelector(".results-card")
+        // const card_infobox = results_cards.querySelector(".card-infobox") 
     
         let resultsPerRoot = d.count
         let ww = d.results
@@ -121,10 +121,15 @@ pasteToInputField.forEach(n => n.addEventListener("click", () => {
     inputField.value = n.textContent;
 }))
 
-function printError(error) {
+function fetchAPIError(error) {
     user_msg.innerHTML = `
     Horrible network traffic <br>
     -Try again- <br>
+    ${error}
+    `
+}
+function printError(error) {
+    user_msg.innerHTML = `
     ${error}
     `
 }

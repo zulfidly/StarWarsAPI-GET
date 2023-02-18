@@ -10,7 +10,7 @@ function checkRootResources() {
     fetch(base_url)
     .then((response) => response.json())
     .then((data) => { createButtonForEachRootResources(data) })
-    .catch((error) => printError(error))
+    .catch((error) => fetchAPIError(error))
 }
 
 function createButtonForEachRootResources(x) {
@@ -54,7 +54,7 @@ function printListResource(d, x) {
     
 
     let currentPageNumber = t
-    let multiplier = (currentPageNumber - 1) * 10
+    let pageAdjuster = (currentPageNumber - 1) * 10
 
     createPrevNextButtonsAccordingly(d, x)
 
@@ -66,18 +66,15 @@ function printListResource(d, x) {
     // search_results.innerHTML = `<li> ${d.count} results found in <span class="root-words">${x.textContent}</span>`
     let length = d.results.length
     let result = ""
-    // const results_card_ctnr = document.querySelector(".results-card-ctnr")
-    // const results_cards = results_card_ctnr.querySelector(".results-card")
-    // const card_infobox = results_cards.querySelector(".card-infobox") 
     for(i=0; i < length; i++) {
         resultBody = ""
         resultHeader = `
-        <tr> <th colspan="3"> Viewing ${i+1+multiplier} of ${d.count} in <span class="root-words">${x.textContent}</span>)</th> </tr>
+        <tr> <th colspan="3"> Viewing ${i+1+pageAdjuster} of ${d.count} in <span class="root-words">${x.textContent}</span></th> </tr>
         <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
         `
         array[i].forEach((obj, ind) => {
             obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
-            if(typeof obj[1] == "object" && obj[1] !== null) {     //if obj[1] is another array, spread them with coma
+            if(typeof obj[1] == "object" && obj[1] !== null) {     // if obj[1] is another array, spread them with coma
                 s = obj[1].toString()
                 obj[1] = s.replace(/,/g, ", ")
             }

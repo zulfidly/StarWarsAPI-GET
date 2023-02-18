@@ -55,7 +55,6 @@ body {
     display: flex;
     gap: 5px;
     margin-top: 15px;
-
 }
 .list-all-buttons {
     flex-basis: 1;
@@ -92,7 +91,7 @@ body {
 #user-msg {
     text-align: center;
     width: 400px;
-    min-height: 20px;
+    min-height: 25px;
 }
 #search-results {
     width: 400px;
