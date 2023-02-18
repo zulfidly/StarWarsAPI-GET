@@ -13,12 +13,10 @@ const results_cards = results_card_ctnr.querySelector(".results-card")
 const card_infobox = results_cards.querySelector(".card-infobox") 
 
 let user_msg = document.querySelector("#user-msg")
-let dataGlobal = null;
 
 //fetch API practice
 window.addEventListener("load", () => {
     checkRootResources()
-    // createButtonForEachRootResources(dataGlobal)
 })
 let currentUserInput = ""
 search.addEventListener("click", (e) => {
@@ -69,7 +67,7 @@ function fetchAPI(rootResource, string) {
     fetch(string)
     .then((response) => response.json())
     .then((data) => displaySearchResultInfo(rootResource, data))
-    .catch((error) => printError(error)) 
+    .catch((error) => fetchAPIError(error)) 
 }
 
 function displaySearchResultInfo(r, d) {
@@ -124,16 +122,11 @@ pasteToInputField.forEach(n => n.addEventListener("click", () => {
 
 function fetchAPIError(error) {
     user_msg.innerHTML = `
-    Horrible network traffic <br>
-    -Try again- <br>
+    -Reload browser or try again- <br>
     ${error}
     `
 }
-function printError(error) {
-    user_msg.innerHTML = `
-    ${error}
-    `
-}
+
 
 
 

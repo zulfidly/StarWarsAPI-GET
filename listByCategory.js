@@ -1,10 +1,5 @@
-nextBtn_ctnr = document.querySelector("#nextBtn-ctnr")
-prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
-
-function thisIsFunny(x) {
-    dataGlobal = x
-    console.log(dataGlobal)
-}
+const nextBtn_ctnr = document.querySelector("#nextBtn-ctnr")
+const prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
 
 function checkRootResources() {
     fetch(base_url)
@@ -37,7 +32,7 @@ function displayAllRootResource(x) {
     fetch(base_url + x.textContent)
     .then((response) => response.json())
     .then((data) => printListResource(data, x))
-    .catch((error) => printError(error))
+    .catch((error) => fetchAPIError(error))
 }
 
 function printListResource(d, x) {
@@ -123,7 +118,7 @@ function goNextPage(n, x) {
     fetch(n)
     .then((response) => response.json())
     .then((data) => { printListResource(data, x) })
-    .catch((error) => printError(error))
+    .catch((error) => fetchAPIError(error))
 }
 function goPrevPage(n, x) {
     user_msg.innerHTML = "Retrieving..."
@@ -131,7 +126,7 @@ function goPrevPage(n, x) {
     fetch(n)
     .then((response) => response.json())
     .then((data) => { printListResource(data, x) })
-    .catch((error) => printError(error))
+    .catch((error) => fetchAPIError(error))
 }
 
 function initUserInfoMeassages() {
