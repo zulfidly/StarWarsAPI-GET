@@ -8,6 +8,7 @@
     scrollbar-width: none;  /* Hide scrollbar for Firefox */
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
     display: none;
@@ -22,7 +23,6 @@ body {
     gap: 15px;
     margin: 10px 0px 50px 0px;
     background-color:antiquewhite;
-
 }
 #logo-ctnr {
     width: 400px;
@@ -150,4 +150,25 @@ tr, td, th {
     justify-content: center;
     align-items: center;
     gap: 5px 15px;
+}
+
+#scrollTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: 1px solid #161617; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #161617; /* Set a background color */
+    color: antiquewhite; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+  }
+  
+  #scrollTopBtn:hover {
+    background-color: antiquewhite; /* Add a dark-grey background on hover */
+    color: #161617; /* Text color */
 }

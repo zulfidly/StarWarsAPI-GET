@@ -5,6 +5,7 @@ const inputField = document.querySelector(".inputField")
 const inputForm = document.querySelector(".inputForm")
 const pasteToInputField = document.querySelectorAll(".pasteToInputField")
 const base_url = "https://swapi.dev/api/"
+let scrollTopBtn = document.getElementById("scrollTopBtn");
 
 
 const results_card_ctnr = document.querySelector(".results-card-ctnr")
