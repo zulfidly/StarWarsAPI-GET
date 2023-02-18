@@ -2,5 +2,5 @@
 
 ## Description
 - this was coded in such a way the nested data's were deconstructed from a single API root [https://swapi.dev/api/](https://swapi.dev/api/)
-- uses get().then().catch
+- uses get().then().catch()
 
