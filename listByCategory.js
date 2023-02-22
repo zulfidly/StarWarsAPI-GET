@@ -2,6 +2,7 @@ const nextBtn_ctnr = document.querySelector("#nextBtn-ctnr")
 const prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
 
 function checkRootResources() {
+    user_msg.innerHTML = retrievingMessage()
     fetch(base_url)
     .then((response) => response.json())
     .then((data) => { createButtonForEachRootResources(data) })
@@ -10,6 +11,7 @@ function checkRootResources() {
 //create a button for each root resources i.e. people, planets, films etc
 function createButtonForEachRootResources(x) {
     let keys = Object.keys(x)
+    user_msg.innerHTML = ""
     buttons_ctnr.innerHTML = ""
     let buttonsString = ""
     keys.forEach((x) => {
@@ -27,7 +29,7 @@ function addListenerToListAllButtons() {
 }
 function displayAllRootResource(x) {
     initUserInfoMeassages()
-    user_msg.innerHTML = "Retrieving..."
+    user_msg.innerHTML = retrievingMessage()
     // console.log(x.textContent)
     fetch(base_url + x.textContent)
     .then((response) => response.json())
@@ -116,7 +118,7 @@ function createPrevNextButtonsAccordingly(d, x) {
 }
 
 function goNextPage(n, x) {
-    user_msg.innerHTML = "Retrieving..."
+    user_msg.innerHTML = retrievingMessage()
 
     fetch(n)
     .then((response) => response.json())
@@ -124,7 +126,7 @@ function goNextPage(n, x) {
     .catch((error) => fetchAPIError(error))
 }
 function goPrevPage(n, x) {
-    user_msg.innerHTML = "Retrieving..."
+    user_msg.innerHTML = retrievingMessage()
 
     fetch(n)
     .then((response) => response.json())

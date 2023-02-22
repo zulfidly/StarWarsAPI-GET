@@ -32,7 +32,7 @@ search.addEventListener("click", (e) => {
         inputField.classList.add("highlight");
         // checkRootResources()
     } else {
-        user_msg.innerHTML = "Retrieving..."
+        user_msg.innerHTML = retrievingMessage()
         inputField.classList.remove("highlight");
         currentUserInput = inputField.value
         searchRootResource(inputField.value);
@@ -126,7 +126,14 @@ function fetchAPIError(error) {
     ${error}
     `
 }
-
+function retrievingMessage() {
+    return `
+    <p>Retrieving  </p>
+    <div id="dot3-animation-ctnr">
+        <div class="dot3"></div>
+    </div>
+    `
+}
 
 
 

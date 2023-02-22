@@ -4,6 +4,10 @@
     --color3 : #E9DAC1;
     --color4 : #54BAB9;
     --almostBlack : #161617;
+
+    --dot3Width : 5px;
+    --dot3Height : var(--dot3Width);
+    --animateSpeed: 400ms;
 }
 *{
     margin: 0;
@@ -99,7 +103,9 @@ body {
     text-decoration: 1px underline dotted #161617;
 }
 #user-msg {
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
     width: 400px;
     min-height: 25px;
 }
@@ -181,4 +187,66 @@ tr, td, th {
   #scrollTopBtn:hover {
     background-color: var(--almostBlack); /* Add a dark-grey background on hover */
     color: var(--color1); /* Text color */
+}
+#dot3-animation-ctnr {
+    width: calc(var(--dot3Width) * 5);
+    height: calc(var(--dot3Height) * 5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px dotted blue;
+    border: none;
+}
+.dot3 {
+    position: absolute;
+    width: var(--dot3Width);
+    height: var(--dot3Height);
+    background-color: black;
+    border-radius: 9999px;
+    transform: translate(0%, -50%);
+    top: 50%;
+    animation-name: dot3-center-animate;
+    animation-duration: var(--animateSpeed);
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+.dot3::before, .dot3::after {
+    position: absolute;
+    content: "";
+    width: var(--dot3Width);
+    height: var(--dot3Height);
+    background-color: black;
+    border-radius: 9999px;
+    animation-name: dot3-sides-animate;
+    animation-duration: var(--animateSpeed);
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    /* animation-play-state: paused; */
+}
+.dot3::before {
+    transform: translate(-140%, -50%);
+    top: 50%;
+}
+.dot3::after {
+    transform: translate(140%, -50%);
+    top: 50%;
+}
+@keyframes dot3-center-animate {
+    0%   {height: var(--dot3Height);         }
+    50%  {height: calc(var(--dot3Height)*3); }
+    100% {height: var(--dot3Height);         }
+}
+@keyframes dot3-sides-animate {
+    0%   {height: calc(var(--dot3Height)*3);    }
+    50%  {height: var(--dot3Height);            }
+    100% {height: calc(var(--dot3Height)*3);    }
 }
