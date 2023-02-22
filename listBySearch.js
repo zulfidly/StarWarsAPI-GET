@@ -49,7 +49,6 @@ function searchRootResource(userInput) {
     .catch((error) => fetchAPIError(error))
 }
 function wholeSearchAPI(x, userInput) {
-    user_msg.innerHTML = ""
     const searchStr = "?search=" + userInput
     let arr = Object.entries(x)
     console.log(arr)
@@ -112,6 +111,7 @@ function displaySearchResultInfo(r, d) {
         }
         card_infobox.innerHTML = result 
     }
+    user_msg.innerHTML = ""
 }
 
 pasteToInputField.forEach(n => n.addEventListener("click", () => {
