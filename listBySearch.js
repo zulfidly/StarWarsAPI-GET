@@ -128,8 +128,12 @@ function fetchAPIError(error) {
 }
 function retrievingMessage() {
     return `
-    <p>Retrieving  </p>
-    <div id="dot3-animation-ctnr">
+    <div class="dot3-animation-ctnr">
+    <div class="dot3"></div>
+</div>
+
+    <p>&nbsp &nbsp Retrieving &nbsp &nbsp</p>
+    <div class="dot3-animation-ctnr">
         <div class="dot3"></div>
     </div>
     `

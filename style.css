@@ -188,7 +188,7 @@ tr, td, th {
     background-color: var(--almostBlack); /* Add a dark-grey background on hover */
     color: var(--color1); /* Text color */
 }
-#dot3-animation-ctnr {
+.dot3-animation-ctnr {
     width: calc(var(--dot3Width) * 5);
     height: calc(var(--dot3Height) * 5);
     display: flex;
