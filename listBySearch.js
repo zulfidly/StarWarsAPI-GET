@@ -1,3 +1,4 @@
+const root = document.querySelector(":root")
 const search_results = document.querySelector("#search-results")
 const buttons_ctnr = document.querySelector("#list-all-root-resource-btn-ctnr")
 const search = document.querySelector(".searchButton")
@@ -29,7 +30,7 @@ search.addEventListener("click", (e) => {
         search_results.innerHTML = ""
         inputField.focus();
         inputField.classList.add("highlight");
-        checkRootResources()
+        // checkRootResources()
     } else {
         user_msg.innerHTML = "Retrieving..."
         inputField.classList.remove("highlight");
@@ -41,7 +42,6 @@ search.addEventListener("click", (e) => {
     }
 })
 
-
 function searchRootResource(userInput) {
     fetch(base_url)
     .then((response) => response.json())
@@ -52,7 +52,7 @@ function wholeSearchAPI(x, userInput) {
     user_msg.innerHTML = ""
     const searchStr = "?search=" + userInput
     let arr = Object.entries(x)
-
+    console.log(arr)
     // console.log(Object.entries(x))
     // console.log(Object.entries(x).length)
     
@@ -72,10 +72,10 @@ function fetchAPI(rootResource, string) {
 
 function displaySearchResultInfo(r, d) {
     if(d.count == 0) {
-        search_results.innerHTML += `<li> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}"`
+        search_results.innerHTML += `<li> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </li>`
 
     } else {
-        search_results.innerHTML += `<li><b> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </b>`
+        search_results.innerHTML += `<li> <b> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </b> </li>`
 
         console.log(r, d.count)
         // const results_card_ctnr = document.querySelector(".results-card-ctnr")

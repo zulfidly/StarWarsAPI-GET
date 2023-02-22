@@ -7,7 +7,7 @@ function checkRootResources() {
     .then((data) => { createButtonForEachRootResources(data) })
     .catch((error) => fetchAPIError(error))
 }
-
+//create a button for each root resources i.e. people, planets, films etc
 function createButtonForEachRootResources(x) {
     let keys = Object.keys(x)
     buttons_ctnr.innerHTML = ""
@@ -39,15 +39,12 @@ function printListResource(d, x) {
     // console.log(d)
     // console.log(d.results, d.results.length)
     // console.log(d.next, d.previous, typeof d.previous)
-
-    // console.log(d.next.slice(-1))
     let t = null
     if(d.next == null && d.previous == null) t = 1  
     else if(d.next !== null && d.previous  == null) t = (d.next.slice(-1)*1)-1 
     else if(d.next  == null && d.previous !== null) t = (d.previous.slice(-1)*1)+1 
     else if(d.next !== null && d.previous !== null) t = (d.next.slice(-1)*1)-1 
     
-
     let currentPageNumber = t
     let pageAdjuster = (currentPageNumber - 1) * 10
 
@@ -57,29 +54,36 @@ function printListResource(d, x) {
     d.results.forEach((obj) => {
         array.push(Object.entries(obj))
     })
-    // console.log(array)
-    // search_results.innerHTML = `<li> ${d.count} results found in <span class="root-words">${x.textContent}</span>`
+    console.log(array)
     let length = d.results.length
     let result = ""
     for(i=0; i < length; i++) {
-        resultBody = ""
-        resultHeader = `
-        <tr> <th colspan="3"> Viewing ${i+1+pageAdjuster} of ${d.count} in <span class="root-words">${x.textContent}</span></th> </tr>
-        <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
-        `
-        array[i].forEach((obj, ind) => {
-            obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
-            if(typeof obj[1] == "object" && obj[1] !== null) {     // if obj[1] is another array, spread them with coma
-                s = obj[1].toString()
-                obj[1] = s.replace(/,/g, ", ")
-            }
-            resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
-        })
-        result += `<table class="card-table"> ${resultHeader + resultBody} </table>`
-        card_infobox.innerHTML = result         
+        console.log(i, length)
+            resultBody = ""
+            resultHeader = `
+            <tr> <th colspan="3"> Viewing ${i+1+pageAdjuster} of ${d.count} in <span class="root-words">${x.textContent}</span></th> </tr>
+            <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
+            `
+            //structure each table contents
+            array[i].forEach((obj, ind) => {
+                obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
+                if(typeof obj[1] == "object" && obj[1] !== null) {     // if obj[1] is another array, insert space after comma
+                    s = obj[1].toString()
+                    obj[1] = s.replace(/,/g, ", ")
+                }
+                resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
+            })
+            result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
+            card_infobox.innerHTML = result 
     }
     user_msg.innerHTML = ""
+}
 
+function bgColorSelector(counter) {
+    let bgEven = getComputedStyle(root).getPropertyValue("--color3")
+    let bgOdd = getComputedStyle(root).getPropertyValue("--color2")
+    if(counter % 2 ==0) return bgEven
+    else return bgOdd
 }
 
 function createPrevNextButtonsAccordingly(d, x) {
@@ -89,20 +93,19 @@ function createPrevNextButtonsAccordingly(d, x) {
         nextBtn_ctnr.innerHTML = ""
     } else if(d.next !== null && d.previous == null) {
         prevBtn_ctnr.innerHTML = ""
-        nextBtn_ctnr.innerHTML = `<button id="nextBtn" class="">Next Page >></button>`
+        nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
             goNextPage(d.next, x)
         })
     } else if(d.next == null && d.previous !== null) {
-        prevBtn_ctnr.innerHTML = `<button id="prevBtn" class=""><< Previous Page</button>`
+        prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         nextBtn_ctnr.innerHTML = ""
         document.querySelector("#prevBtn").addEventListener("click", () => {
             goPrevPage(d.previous, x)
         })
     } else if(d.next !== null && d.previous !== null) {
-        nextBtn_ctnr.innerHTML = `<button id="nextBtn" class="">Next Page >></button>`
-        prevBtn_ctnr.innerHTML = `<button id="prevBtn" class=""><< Previous Page</button>`
-        // navBtn_ctnr.innerHTML = `<button id="prevBtn" class="">Previous Page</button> <button id="nextBtn" class="">Next Page</button>`
+        nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
+        prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
             goNextPage(d.next, x)
         })

@@ -1,14 +1,22 @@
+:root {
+    --color1 : #FBF8F1;
+    --color2 : #F7ECDE;
+    --color3 : #E9DAC1;
+    --color4 : #54BAB9;
+    --almostBlack : #161617;
+}
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #161617;
+    color: var(--almostBlack);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
     scrollbar-width: none;  /* Hide scrollbar for Firefox */
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+    font-kerning: auto;
 }
 body::-webkit-scrollbar {
     display: none;
@@ -22,7 +30,7 @@ body {
     align-items: center;
     gap: 15px;
     margin: 10px 0px 50px 0px;
-    background-color:antiquewhite;
+    background-color: var(--color1);
 }
 #logo-ctnr {
     width: 400px;
@@ -42,14 +50,15 @@ body {
     flex-basis: 1;
     width: 100%;
     height: 30px;
-    border: 1px solid #161617;
+    border: 1px solid var(--almostBlack);
+    background-color: var(--color4);
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
 }
 #searchBtn:hover {
-    background-color:  #161617;
-    color: antiquewhite;
+    background-color: #161617;
+    color: var(--color2);
 }
 #list-all-root-resource-btn-ctnr {
     display: flex;
@@ -61,13 +70,14 @@ body {
     width: 100%;
     height: 25px;
     border: 1px solid #161617;
+    background-color: var(--color4);
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
 }
 .list-all-buttons:hover {
     background-color:  #161617;
-    color: antiquewhite;
+    color: var(--color2);
 }
 .inputField {
     flex-basis: 1;
@@ -113,10 +123,11 @@ body {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
+    background-color: var(--color4);
 }
 #nextBtn:hover, #prevBtn:hover {
     background-color:  #161617;
-    color: antiquewhite;
+    color: var(--color2);
 }
 #nextBtn-ctnr, #prevBtn-ctnr {
     flex-basis: 1;
@@ -132,7 +143,6 @@ table {
     width: 400px;
     border-collapse: collapse;
     margin: 2px 0px 20px 0px;
-    
 }
 .card-infobox {
     width: 400px;
@@ -158,10 +168,10 @@ tr, td, th {
     bottom: 20px; /* Place the button at the bottom of the page */
     right: 30px; /* Place the button 30px from the right */
     z-index: 99; /* Make sure it does not overlap */
-    border: 1px solid #161617; /* Remove borders */
+    border: 1px solid var(--almostBlack); /* Remove borders */
     outline: none; /* Remove outline */
-    background-color: #161617; /* Set a background color */
-    color: antiquewhite; /* Text color */
+    background-color: var(--color4); /* Set a background color */
+    color: var(--almostBlack); /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
     padding: 15px; /* Some padding */
     border-radius: 10px; /* Rounded corners */
@@ -169,6 +179,6 @@ tr, td, th {
   }
   
   #scrollTopBtn:hover {
-    background-color: antiquewhite; /* Add a dark-grey background on hover */
-    color: #161617; /* Text color */
+    background-color: var(--almostBlack); /* Add a dark-grey background on hover */
+    color: var(--color1); /* Text color */
 }
