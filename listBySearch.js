@@ -108,7 +108,7 @@ function displaySearchResultInfo(r, d) {
                 }
                 resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
             })
-            result += `<table class="card-table"> ${resultHeader + resultBody} </table>`
+            result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
         }
         card_infobox.innerHTML = result 
     }
@@ -129,10 +129,11 @@ function fetchAPIError(error) {
 function retrievingMessage() {
     return `
     <div class="dot3-animation-ctnr">
-    <div class="dot3"></div>
-</div>
+        <div class="dot3"></div>
+    </div>
 
     <p>&nbsp &nbsp Retrieving &nbsp &nbsp</p>
+    
     <div class="dot3-animation-ctnr">
         <div class="dot3"></div>
     </div>
