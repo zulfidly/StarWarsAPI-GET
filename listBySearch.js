@@ -1,20 +1,3 @@
-const root = document.querySelector(":root")
-const search_results = document.querySelector("#search-results")
-const buttons_ctnr = document.querySelector("#list-all-root-resource-btn-ctnr")
-const search = document.querySelector(".searchButton")
-const inputField = document.querySelector(".inputField")
-const inputForm = document.querySelector(".inputForm")
-const pasteToInputField = document.querySelectorAll(".pasteToInputField")
-const base_url = "https://swapi.dev/api/"
-let scrollTopBtn = document.getElementById("scrollTopBtn");
-
-
-const results_card_ctnr = document.querySelector(".results-card-ctnr")
-const results_cards = results_card_ctnr.querySelector(".results-card")
-const card_infobox = results_cards.querySelector(".card-infobox") 
-
-let user_msg = document.querySelector("#user-msg")
-
 //fetch API practice
 window.addEventListener("load", () => {
     checkRootResources()
@@ -30,14 +13,12 @@ search.addEventListener("click", (e) => {
         search_results.innerHTML = ""
         inputField.focus();
         inputField.classList.add("highlight");
-        // checkRootResources()
     } else {
         user_msg.innerHTML = retrievingMessage()
         inputField.classList.remove("highlight");
         currentUserInput = inputField.value
         searchRootResource(inputField.value);
         inputForm.reset();
-        // inputField.focus();
         search_results.innerHTML = ""
     }
 })
@@ -56,12 +37,19 @@ function wholeSearchAPI(x, userInput) {
     // console.log(Object.entries(x).length)
     
     arr.forEach((obj, ind) => {
-        console.log(obj[1])
+        // console.log(obj[1])
         let rootResource = obj[0]
         let str = obj[1] + searchStr
         fetchAPI(rootResource, str)
+
+        if(ind == arr.length - 1) {
+            printUserMessage("")
+        } else {
+            printUserMessage(retrievingMessage())
+        }
     })
 }
+
 function fetchAPI(rootResource, string) {
     fetch(string)
     .then((response) => response.json())
@@ -72,15 +60,9 @@ function fetchAPI(rootResource, string) {
 function displaySearchResultInfo(r, d) {
     if(d.count == 0) {
         search_results.innerHTML += `<li> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </li>`
-
     } else {
         search_results.innerHTML += `<li> <b> ${d.count} results found in <span class="root-words">${r}</span> for "${currentUserInput}" </b> </li>`
-
-        console.log(r, d.count)
-        // const results_card_ctnr = document.querySelector(".results-card-ctnr")
-        // const results_cards = results_card_ctnr.querySelector(".results-card")
-        // const card_infobox = results_cards.querySelector(".card-infobox") 
-    
+        // console.log(r, d.count)
         let resultsPerRoot = d.count
         let ww = d.results
         let array = []
@@ -89,21 +71,20 @@ function displaySearchResultInfo(r, d) {
         let result = card_infobox.innerHTML
     
         ww.forEach((obj, ind) => {
-            // console.log(obj)
             array.push(Object.entries(obj))
         })
     
         for(i=0; i < resultsPerRoot; i++) {
             resultBody = ""
             resultHeader = `
-            <tr> <th colspan="3"> Result ${i+1} of ${resultsPerRoot} found in <span class="root-words">${r}</span></th> </tr>
+            <tr> <th colspan="3"> Result ${i+1} of ${resultsPerRoot} found in <span class="root-words">${r}</span> </th> </tr>
             <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
             `
             array[i].forEach((obj, ind) => {
                 obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
-                if(typeof obj[1] == "object" && obj[1] !== null) {     //if obj[1] is another array, spread them with coma
+                if(typeof obj[1] == "object" && obj[1] !== null) {     
                     s = obj[1].toString()
-                    obj[1] = s.replace(/,/g, ", ")
+                    obj[1] = s.replace(/,/g, ", ")      //if obj[1] is another array, insert space after comma
                 }
                 resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
             })
@@ -111,21 +92,23 @@ function displaySearchResultInfo(r, d) {
         }
         card_infobox.innerHTML = result 
     }
-    user_msg.innerHTML = ""
 }
 
 pasteToInputField.forEach(n => n.addEventListener("click", () => {
-    // console.log(n, "**",n.textContent);
-    // console.log(pasteToInputField)
     inputField.value = n.textContent;
 }))
 
 function fetchAPIError(error) {
-    user_msg.innerHTML = `
+    printUserMessage(`
     -Reload browser or try again- <br>
     ${error}
-    `
+    `)
 }
+
+function printUserMessage(inputString) {
+    user_msg.innerHTML = inputString
+}
+
 function retrievingMessage() {
     return `
     <div class="dot3-animation-ctnr">

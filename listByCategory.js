@@ -2,7 +2,7 @@ const nextBtn_ctnr = document.querySelector("#nextBtn-ctnr")
 const prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
 
 function checkRootResources() {
-    user_msg.innerHTML = retrievingMessage()
+    printUserMessage(retrievingMessage())
     fetch(base_url)
     .then((response) => response.json())
     .then((data) => { createButtonForEachRootResources(data) })
@@ -10,10 +10,11 @@ function checkRootResources() {
 }
 //create a button for each root resources i.e. people, planets, films etc
 function createButtonForEachRootResources(x) {
+    initUserInfoMessages()
+
     let keys = Object.keys(x)
-    user_msg.innerHTML = ""
-    buttons_ctnr.innerHTML = ""
     let buttonsString = ""
+
     keys.forEach((x) => {
         // console.log(x)
         buttonsString += `<button class="list-all-buttons">${x}</button>`
@@ -28,8 +29,8 @@ function addListenerToListAllButtons() {
     }))
 }
 function displayAllRootResource(x) {
-    initUserInfoMeassages()
-    user_msg.innerHTML = retrievingMessage()
+    initUserInfoMessages()
+    printUserMessage(retrievingMessage())
     // console.log(x.textContent)
     fetch(base_url + x.textContent)
     .then((response) => response.json())
@@ -60,25 +61,24 @@ function printListResource(d, x) {
     let length = d.results.length
     let result = ""
     for(i=0; i < length; i++) {
-        console.log(i, length)
-            resultBody = ""
-            resultHeader = `
-            <tr> <th colspan="3"> Viewing ${i+1+pageAdjuster} of ${d.count} in <span class="root-words">${x.textContent}</span></th> </tr>
-            <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
-            `
-            //structure each table contents
-            array[i].forEach((obj, ind) => {
-                obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
-                if(typeof obj[1] == "object" && obj[1] !== null) {     // if obj[1] is another array, insert space after comma
-                    s = obj[1].toString()
-                    obj[1] = s.replace(/,/g, ", ")
-                }
-                resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
-            })
-            result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
-            card_infobox.innerHTML = result 
+        resultBody = ""
+        resultHeader = `
+        <tr> <th colspan="3"> Viewing ${i+1+pageAdjuster} of ${d.count} in <span class="root-words">${x.textContent}</span></th> </tr>
+        <tr> <th>#</th> <th>Description</th> <th>Info</th> </tr>
+        `
+        //structure each table contents
+        array[i].forEach((obj, ind) => {
+            obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
+            if(typeof obj[1] == "object" && obj[1] !== null) {     // if obj[1] is another array, insert space after comma
+                s = obj[1].toString()
+                obj[1] = s.replace(/,/g, ", ")
+            }
+            resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
+        })
+        result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
+        card_infobox.innerHTML = result 
     }
-    user_msg.innerHTML = ""
+    printUserMessage("")
 }
 
 function bgColorSelector(counter) {
@@ -89,7 +89,6 @@ function bgColorSelector(counter) {
 }
 
 function createPrevNextButtonsAccordingly(d, x) {
-
     if(d.next == null && d.previous == null) {
         prevBtn_ctnr.innerHTML = ""
         nextBtn_ctnr.innerHTML = ""
@@ -118,23 +117,21 @@ function createPrevNextButtonsAccordingly(d, x) {
 }
 
 function goNextPage(n, x) {
-    user_msg.innerHTML = retrievingMessage()
-
+    printUserMessage(retrievingMessage())
     fetch(n)
     .then((response) => response.json())
     .then((data) => { printListResource(data, x) })
     .catch((error) => fetchAPIError(error))
 }
 function goPrevPage(n, x) {
-    user_msg.innerHTML = retrievingMessage()
-
+    printUserMessage(retrievingMessage())
     fetch(n)
     .then((response) => response.json())
     .then((data) => { printListResource(data, x) })
     .catch((error) => fetchAPIError(error))
 }
 
-function initUserInfoMeassages() {
+function initUserInfoMessages() {
     user_msg.innerHTML = ""
     search_results.innerHTML = ""
     card_infobox.innerHTML = ""
@@ -144,7 +141,7 @@ function initUserInfoMeassages() {
 
 
 // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() {  scrollFunction()    };
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {

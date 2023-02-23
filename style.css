@@ -5,7 +5,7 @@
     --color4 : #54BAB9;
     --almostBlack : #161617;
 
-    --dot3Width : 5px;
+    --dot3Width : 6px;
     --dot3Height : var(--dot3Width);
     --animateSpeed: 400ms;
 }
@@ -103,9 +103,10 @@ body {
     text-decoration: 1px underline dotted #161617;
 }
 #user-msg {
-    /* text-align: center; */
+    text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 400px;
     min-height: 25px;
 }
@@ -206,6 +207,7 @@ tr, td, th {
     border-radius: 9999px;
     transform: translate(0%, -50%);
     top: 50%;
+    text-align: justify;
     animation-name: dot3-center-animate;
     animation-duration: var(--animateSpeed);
     animation-timing-function: linear;
