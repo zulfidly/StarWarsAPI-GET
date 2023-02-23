@@ -75,17 +75,10 @@ function printListResource(d, x) {
             }
             resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
         })
-        result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
+        result += `<table> ${resultHeader + resultBody} </table>`
         card_infobox.innerHTML = result 
     }
     printUserMessage("")
-}
-
-function bgColorSelector(counter) {
-    let bgEven = getComputedStyle(root).getPropertyValue("--color3")
-    let bgOdd = getComputedStyle(root).getPropertyValue("--color2")
-    if(counter % 2 ==0) return bgEven
-    else return bgOdd
 }
 
 function createPrevNextButtonsAccordingly(d, x) {

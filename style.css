@@ -61,7 +61,7 @@ body {
     cursor: pointer;
 }
 #searchBtn:hover {
-    background-color: #161617;
+    background-color: var(--almostBlack);
     color: var(--color2);
 }
 #list-all-root-resource-btn-ctnr {
@@ -73,19 +73,19 @@ body {
     flex-basis: 1;
     width: 100%;
     height: 25px;
-    border: 1px solid #161617;
+    border: 1px solid var(--almostBlack);
     background-color: var(--color4);
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
 }
 .list-all-buttons:hover {
-    background-color:  #161617;
+    background-color:  var(--almostBlack);
     color: var(--color2);
 }
 .inputField {
     flex-basis: 1;
-    border: 1px solid #161617;
+    border: 1px solid var(--almostBlack);
     transition: 0.7s;
     width: 100%;
     height: 30px;
@@ -100,7 +100,7 @@ body {
     cursor: pointer;
 }
 .pasteToInputField:hover {
-    text-decoration: 1px underline dotted #161617;
+    text-decoration: 1px underline dotted var(--almostBlack);
 }
 #user-msg {
     text-align: center;
@@ -117,7 +117,7 @@ body {
 .highlight {
     /* border: 2px solid red; */
     background-color: lightcoral ;
-    color: #161617;
+    color: var(--almostBlack);
 }
 .navBtn-ctnr {
     display: flex;
@@ -126,14 +126,14 @@ body {
 #nextBtn, #prevBtn {
     width: 150px;
     height: 25px;
-    border: 1px solid #161617;
+    border: 1px solid var(--almostBlack);
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
     background-color: var(--color4);
 }
 #nextBtn:hover, #prevBtn:hover {
-    background-color:  #161617;
+    background-color:  var(--almostBlack);
     color: var(--color2);
 }
 #nextBtn-ctnr, #prevBtn-ctnr {
@@ -151,9 +151,16 @@ table {
     border-collapse: collapse;
     margin: 2px 0px 20px 0px;
 }
+table:nth-child(2n+1) {
+    background-color: var(--color3);
+}
+table:nth-child(2n) {
+    background-color: var(--color2);
+}
 .card-infobox {
     width: 400px;
 }
+
 tr, td, th {
     width: auto;
     border: 1px solid gray;
@@ -168,7 +175,6 @@ tr, td, th {
     align-items: center;
     gap: 5px 15px;
 }
-
 #scrollTopBtn {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
@@ -183,12 +189,13 @@ tr, td, th {
     padding: 15px; /* Some padding */
     border-radius: 10px; /* Rounded corners */
     font-size: 18px; /* Increase font size */
-  }
-  
-  #scrollTopBtn:hover {
+}
+#scrollTopBtn:hover {
     background-color: var(--almostBlack); /* Add a dark-grey background on hover */
     color: var(--color1); /* Text color */
 }
+
+
 .dot3-animation-ctnr {
     width: calc(var(--dot3Width) * 5);
     height: calc(var(--dot3Height) * 5);

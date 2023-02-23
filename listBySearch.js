@@ -88,7 +88,7 @@ function displaySearchResultInfo(r, d) {
                 }
                 resultBody +=  `<tr> <td>${ind+1}</td> <td>${obj[0]}</td> <td>${obj[1]}</td> </tr>`
             })
-            result += `<table style="background-color:${bgColorSelector(i)}"> ${resultHeader + resultBody} </table>`
+            result += `<table> ${resultHeader + resultBody} </table>`
         }
         card_infobox.innerHTML = result 
     }
