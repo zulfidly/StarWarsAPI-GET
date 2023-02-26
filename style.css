@@ -108,7 +108,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 400px;
-    min-height: 25px;
+    min-height: 28px;
 }
 #search-results {
     width: 400px;
@@ -142,9 +142,26 @@ body {
 li {
     list-style: none;
 }
-.root-words {
+.tapIcon {
+    width: 25px;
+    height: 25px;
+}
+.root-words-with-results {
+    color: var(--color4);
+    font-style: italic;
+    cursor: pointer;
+}
+.root-words-without-results {
     color: #815B5B;
     font-style: italic;
+}
+.underline-when-hovered:hover {
+    text-decoration: dotted underline var(--almostBlack) 1px;
+}
+.underline-when-hovered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 table {
     width: 400px;
