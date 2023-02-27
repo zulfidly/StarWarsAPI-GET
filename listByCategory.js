@@ -1,12 +1,12 @@
 //create a button for each root resources i.e. people, planets, films etc
 function createButtonForEachRootResources(x) {
     initUserInfoMessages()
-
+    array_of_Roots_Global = Object.entries(x)
+    console.log(array_of_Roots_Global)
     let keys = Object.keys(x)
     let buttonsString = ""
 
     keys.forEach((x) => {
-        // console.log(x)
         buttonsString += `<button class="list-all-buttons">${x}</button>`
     })
     buttons_ctnr.innerHTML = buttonsString
@@ -16,15 +16,13 @@ function addListenerToAllRootButtons() {
     let buttons = document.querySelectorAll(".list-all-buttons")
     buttons.forEach((x) => x.addEventListener("click", (e) => {
         initUserInfoMessages()
-        displayAllRootResource(x.textContent, "", "", "")
+        let endpoint = base_url + x.textContent
+        fetchAPI(printListResource, endpoint, x.textContent, "")
     }))
 }
 
-
 function printListResource(d, x, keywordInSearch) {
     console.log(d)
-    // console.log(d.results, d.results.length)
-    // console.log(d.next, d.previous, typeof d.previous)
     let t = null
     if(d.next == null && d.previous == null) t = 1  
     else if(d.next !== null && d.previous  == null) t = (d.next.slice(-1)*1)-1 
@@ -55,7 +53,7 @@ function printListResource(d, x, keywordInSearch) {
 
             if( typeof obj[1] == "string") {                // convert single URL string to hyperlink
                 obj[1] = createHyperlinkIfTextIs_an_URL(obj[1]) 
-            } else if(obj[1] instanceof Array && obj[1] !== null) {     // if obj[1] is a nested array, insert space after comma
+            } else if(obj[1] instanceof Array && obj[1] !== null) {     // if obj[1] is a nested array
                 s = obj[1].toString()
                 let arr = s.split(",")      // structure each text link into an index in one array
                 let x = ""
@@ -86,40 +84,25 @@ function createPrevNextButtonsAccordingly(d, x, keywordInSearch) {
         prevBtn_ctnr.innerHTML = ""
         nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
-            goToUserChosenPage(d.next, x, keywordInSearch)
+            fetchAPI(printListResource, d.next, x, keywordInSearch)
         })
     } else if(d.next == null && d.previous !== null) {
         prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         nextBtn_ctnr.innerHTML = ""
         document.querySelector("#prevBtn").addEventListener("click", () => {
-            goToUserChosenPage(d.previous, x, keywordInSearch)
+            fetchAPI(printListResource, d.previous, x, keywordInSearch)
+
         })
     } else if(d.next !== null && d.previous !== null) {
         nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
         prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
-            goToUserChosenPage(d.next, x, keywordInSearch)
+            fetchAPI(printListResource, d.next, x, keywordInSearch)
         })
         document.querySelector("#prevBtn").addEventListener("click", () => {
-            goToUserChosenPage(d.previous, x, keywordInSearch)
+            fetchAPI(printListResource, d.previous, x, keywordInSearch)
         })
     }
-}
-
-function goToUserChosenPage(n, x, keywordInSearch) {
-    printUserMessage(retrievingMessage())
-    fetch(n)
-    .then((response) => response.json())
-    .then((data) => { printListResource(data, x, keywordInSearch) })
-    .catch((error) => fetchAPIError(error))
-}
-
-function initUserInfoMessages() {
-    user_msg.innerHTML = ""
-    search_results.innerHTML = ""
-    card_infobox.innerHTML = ""
-    prevBtn_ctnr.innerHTML = ""
-    nextBtn_ctnr.innerHTML = ""
 }
 
 

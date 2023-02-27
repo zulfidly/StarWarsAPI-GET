@@ -1,13 +1,13 @@
 //fetch API practice
 window.addEventListener("load", () => {
-    checkRootResources()
+    fetchAPI(createButtonForEachRootResources, base_url)
 })
-function checkRootResources() {
+function fetchAPI(fu, api_endpoint, objData, userInput) {
     printUserMessage(retrievingMessage())
-    fetch(base_url)
+    fetch(api_endpoint)
     .then((response) => response.json())
-    .then((data) => { createButtonForEachRootResources(data) })
-    .catch((error) => fetchAPIError(error))
+    .then((data) => fu(data, objData, userInput) )
+    .catch((error) => fetchAPI_Error(error))
 }
 
 search.addEventListener("click", (e) => {
@@ -18,102 +18,62 @@ search.addEventListener("click", (e) => {
         inputField.focus();
         inputField.classList.add("highlight");
     } else {
-        user_msg.innerHTML = retrievingMessage()
         inputField.classList.remove("highlight");
+
         currentUserInput = inputField.value
-        searchRootResource(currentUserInput);
+        const searchStr = "?search=" + currentUserInput
+
+        array_of_Roots_Global.forEach((obj, ind) => {
+            let rootResource = obj[0]
+            let str = obj[1] + searchStr
+            fetchAPI(displaySearchResultSummary, str, rootResource)
+        })
         inputForm.reset();
     }
 })
 
-function searchRootResource(userInput) {
-    fetch(base_url)
-    .then((response) => response.json())
-    .then((data) => wholeSearchAPI(data, userInput))
-    .catch((error) => fetchAPIError(error))
-}
-function fetchAPI(rootResource, string) {
-    fetch(string)
-    .then((response) => response.json())
-    .then((data) => displaySearchResultInfo(rootResource, data))
-    .catch((error) => fetchAPIError(error)) 
-}
-
-function wholeSearchAPI(x, userInput) {
-    const searchStr = "?search=" + userInput
-    initUserInfoMessages()
-    let arr = Object.entries(x)
-    // console.log(arr)
-    // console.log(Object.entries(x))
-    // console.log(Object.entries(x).length)
-    
-    arr.forEach((obj, ind) => {
-        // console.log(obj[1])
-        let rootResource = obj[0]
-        let str = obj[1] + searchStr
-        fetchAPI(rootResource, str)
-
-        if(ind == arr.length - 1) {
-            printUserMessage("")
-        } else {
-            printUserMessage(retrievingMessage())
-        }
-    })
-}
-
-function displaySearchResultInfo(r, d) {
+function displaySearchResultSummary(d, r) {
     if(d.count == 0) {
-        search_results.innerHTML += `<li> ${d.count} results found for <em>"${currentUserInput}"</em> <span class="root-words-without-results">${r}</span> </li>`
+        search_results.innerHTML += `<li> ${d.count} results found for <em>" ${currentUserInput} "</em> <span class="root-words-without-results">${r}</span> </li>`
     } else {
-        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>"${currentUserInput}"</em> in <span class="root-words-with-results">${r}</span> </b> &nbsp <img class="tapIcon" src="./tap.png"> </li>`
-        // console.log(r, d)
-        let resultsPerRoot = d.count
-        let ww = d.results
-        let array = []
-        let resultHeader = ""
-        let resultBody = ""
-        let result = card_infobox.innerHTML
-    
-        ww.forEach((obj, ind) => {
-            array.push(Object.entries(obj))
-        })
-        card_infobox.innerHTML = result 
+        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>" ${currentUserInput} "</em> in <span class="root-words-with-results">${r}</span> </b> &nbsp <img class="tapIcon" src="./tap.png"> </li>`
     }
     addListenerToAllRootWordSearchedWithResult()
+    if(search_results.childElementCount == array_of_Roots_Global.length) printUserMessage("")
 }
 
 function addListenerToAllRootWordSearchedWithResult() {
     let buttons = document.querySelectorAll(".root-words-with-results")
+
     buttons.forEach((x) => x.addEventListener("click", (e) => {
         console.log(x.textContent, currentUserInput)
-        console.log(e)
-        displayAllRootResource(x.textContent, "/?search=", currentUserInput, `for "<em>${currentUserInput}</em>"`)
+        let endpoint = base_url + x.textContent + "/?search=" + currentUserInput
+        console.log(endpoint)
+        fetchAPI(printListResource, endpoint, x.textContent, `for "<em>${currentUserInput}</em>"`)
     }))
-}
-function displayAllRootResource(x ,y ,z, keywordInSearch) {
-    printUserMessage(retrievingMessage())
-
-    fetch(base_url + x + y + z)
-    .then((response) => response.json())
-    .then((data) => printListResource(data, x, keywordInSearch))
-    .catch((error) => fetchAPIError(error))
 }
 
 pasteToInputField.forEach(n => n.addEventListener("click", () => {
     inputField.value = n.textContent;
 }))
 
-function fetchAPIError(error) {
+function fetchAPI_Error(error) {
     printUserMessage(`
     -Reload browser or try again- <br>
     ${error}
     `)
 }
 
+function initUserInfoMessages() {
+    user_msg.innerHTML = ""
+    search_results.innerHTML = ""
+    card_infobox.innerHTML = ""
+    prevBtn_ctnr.innerHTML = ""
+    nextBtn_ctnr.innerHTML = ""
+}
 function printUserMessage(inputString) {
     user_msg.innerHTML = inputString
 }
-
 function retrievingMessage() {
     return `
     <div class="dot3-animation-ctnr">
@@ -127,8 +87,6 @@ function retrievingMessage() {
     </div>
     `
 }
-
-
 
 
 

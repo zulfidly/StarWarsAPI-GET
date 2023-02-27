@@ -14,7 +14,11 @@ const card_infobox = results_cards.querySelector(".card-infobox")
 
 let user_msg = document.querySelector("#user-msg")
 
-let currentUserInput = ""
 
 const nextBtn_ctnr = document.querySelector("#nextBtn-ctnr")
 const prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
+
+let currentUserInput = ""
+let array_of_Roots_Global = []
+
+
