@@ -6,8 +6,8 @@
 - use of array methods pre-dominantly
 
 
-#### The fetch function was re-factored into a single function 
-#### Data was retrieved by chain calling multiple fetch functions previously, due to its asynchronous nature
+#### The fetch function has been re-factored into a single function 
+- Data was retrieved by chain calling multiple fetch functions previously, due to its asynchronous nature
 ```
 function fetchAPI(fu, api_endpoint, objData, userInput) {
     printUserMessage(retrievingMessage())
