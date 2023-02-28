@@ -16,6 +16,7 @@ function createButtonForEachRootResources(x) {
 }
 function listenerAllRootButtons(e) {
         // console.log(e)
+        document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
         initUserInfoMessages()
         let endpoint = base_url + e.target.innerHTML
         fetchAPI(printListResource, endpoint, e.target.innerHTML, "")
@@ -66,7 +67,13 @@ function printListResource(d, x, keywordInSearch) {
         })
         result += `<table> ${resultHeader + resultBody} </table>`
         card_infobox.innerHTML = result 
-    }
+
+        if(i+1 == length) {
+            //re-attach listener after previous requested content loaded
+            document.querySelectorAll(".list-all-buttons").forEach((x) => x.addEventListener("click", listenerAllRootButtons))
+        }
+    
+}
     printUserMessage("")
 }
 function createHyperlinkIfTextIs_an_URL(string) {

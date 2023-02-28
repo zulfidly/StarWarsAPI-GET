@@ -19,6 +19,7 @@ search.addEventListener("click", (e) => {
         inputField.classList.add("highlight");
     } else {
         inputField.classList.remove("highlight");
+        // remove listener to prevent chaos resulting from multiple quick presses
         document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
         currentUserInput = inputField.value
         const searchStr = "?search=" + currentUserInput
@@ -43,6 +44,7 @@ function displaySearchResultSummary(d, r) {
     addListenerToAllRootWordSearchedWithResult()
     if(search_results.childElementCount == array_of_Roots_Global.length) {
         printUserMessage("")
+        //re-attach listener after previous requested content loaded
         document.querySelectorAll(".list-all-buttons").forEach((x) => x.addEventListener("click", listenerAllRootButtons))
     }
 }
@@ -50,7 +52,7 @@ function displaySearchResultSummary(d, r) {
 function addListenerToAllRootWordSearchedWithResult() {
     let buttons = document.querySelectorAll(".root-words-with-results")
 
-    buttons.forEach((x) => x.addEventListener("click", (e) => {
+    buttons.forEach((x) => x.addEventListener("click", () => {
         console.log(x.textContent, currentUserInput)
         let endpoint = base_url + x.textContent + "/?search=" + currentUserInput
         console.log(endpoint)
