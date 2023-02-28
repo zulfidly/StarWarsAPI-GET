@@ -17,3 +17,15 @@ function fetchAPI(fu, api_endpoint, objData, userInput) {
     .catch((error) => fetchAPI_Error(error))
 }
 ```
+#### Modified event listner handler :
+```
+buttons_root.forEach((x) => x.addEventListener("click", listenerAllRootButtons))
+function listenerAllRootButtons(e) {
+    initUserInfoMessages()
+    let endpoint = base_url + e.target.innerHTML
+    fetchAPI(printListResource, endpoint, e.target.innerHTML, "")
+}
+    document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
+```
+
+#### CSS outline property removed and all clickable elements wrapped with button tag, this is to enable focused element displayed distinctive (i.e. by pressing Tab). 
