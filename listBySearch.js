@@ -32,6 +32,8 @@ search.addEventListener("click", (e) => {
     }
 })
 
+inputField.addEventListener("input", () => {    inputField.classList.remove("highlight");   }, {once:true})
+
 function displaySearchResultSummary(d, r) {
     if(d.count == 0) {
         search_results.innerHTML += `<li> ${d.count} results found for <em>" ${currentUserInput} "</em> in <span class="root-words-without-results">${r}</span> </li>`
