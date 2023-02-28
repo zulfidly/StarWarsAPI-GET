@@ -6,3 +6,14 @@
 - use of array methods pre-dominantly
 
 
+#### The fetch function has been re-factored into a single function 
+- Data was retrieved by chain calling multiple fetch functions previously, due to its asynchronous nature
+```
+function fetchAPI(fu, api_endpoint, objData, userInput) {
+    printUserMessage(retrievingMessage())
+    fetch(api_endpoint)
+    .then((response) => response.json())
+    .then((data) => fu(data, objData, userInput) )
+    .catch((error) => fetchAPI_Error(error))
+}
+```
