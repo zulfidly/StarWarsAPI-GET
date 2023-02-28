@@ -29,3 +29,5 @@ function listenerAllRootButtons(e) {
 ```
 
 #### CSS outline property removed and all clickable elements wrapped with button tag, this is to enable focused element displayed distinctive (i.e. by pressing Tab). 
+
+#### Dark mode added

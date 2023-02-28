@@ -13,14 +13,13 @@ function fetchAPI(fu, api_endpoint, objData, userInput) {
 search.addEventListener("click", (e) => {
     e.preventDefault()
     initUserInfoMessages()
-    document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
 
     if(inputField.value == "") {
         inputField.focus();
         inputField.classList.add("highlight");
     } else {
         inputField.classList.remove("highlight");
-
+        document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
         currentUserInput = inputField.value
         const searchStr = "?search=" + currentUserInput
 
@@ -35,9 +34,9 @@ search.addEventListener("click", (e) => {
 
 function displaySearchResultSummary(d, r) {
     if(d.count == 0) {
-        search_results.innerHTML += `<li> ${d.count} results found for <em>" ${currentUserInput} "</em> <span class="root-words-without-results">${r}</span> </li>`
+        search_results.innerHTML += `<li> ${d.count} results found for <em>" ${currentUserInput} "</em> in <span class="root-words-without-results">${r}</span> </li>`
     } else {
-        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>" ${currentUserInput} "</em> in <button class="root-words-with-results">${r}</button> </b> &nbsp <img class="tapIcon" src="./tap.png"> </li>`
+        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>" ${currentUserInput} "</em> in <button class="root-words-with-results">${r}</button> </b> &nbsp <img class="tapIcon" src="./tap.png" /> </li>`
     }
     addListenerToAllRootWordSearchedWithResult()
     if(search_results.childElementCount == array_of_Roots_Global.length) {
@@ -84,7 +83,7 @@ function retrievingMessage() {
         <div class="dot3"></div>
     </div>
 
-    <p>&nbsp &nbsp Retrieving &nbsp &nbsp</p>
+    <p class="retrieving">&nbsp &nbsp Retrieving &nbsp &nbsp</p>
     
     <div class="dot3-animation-ctnr">
         <div class="dot3"></div>
