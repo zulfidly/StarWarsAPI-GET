@@ -32,7 +32,7 @@ search.addEventListener("click", (e) => {
     }
 })
 
-inputField.addEventListener("input", () => {    inputField.classList.remove("highlight");   }, {once:true})
+inputField.addEventListener("input", () => {    inputField.classList.remove("highlight");   })
 
 function displaySearchResultSummary(d, r) {
     if(d.count == 0) {
