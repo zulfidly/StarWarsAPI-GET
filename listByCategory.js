@@ -10,15 +10,15 @@ function createButtonForEachRootResources(x) {
         buttonsString += `<button class="list-all-buttons">${x}</button>`
     })
     buttons_ctnr.innerHTML = buttonsString
-    addListenerToAllRootButtons()
+
+    const buttons_root = document.querySelectorAll(".list-all-buttons")
+    buttons_root.forEach((x) => x.addEventListener("click", listenerAllRootButtons))
 }
-function addListenerToAllRootButtons() {
-    let buttons = document.querySelectorAll(".list-all-buttons")
-    buttons.forEach((x) => x.addEventListener("click", (e) => {
+function listenerAllRootButtons(e) {
+        // console.log(e)
         initUserInfoMessages()
-        let endpoint = base_url + x.textContent
-        fetchAPI(printListResource, endpoint, x.textContent, "")
-    }))
+        let endpoint = base_url + e.target.innerHTML
+        fetchAPI(printListResource, endpoint, e.target.innerHTML, "")
 }
 
 function printListResource(d, x, keywordInSearch) {
@@ -51,7 +51,7 @@ function printListResource(d, x, keywordInSearch) {
         array[i].forEach((obj, ind) => {
             obj[0] = obj[0].replace(/_/g, " ")  //replace underscores with space
 
-            if( typeof obj[1] == "string") {                // convert single URL string to hyperlink
+            if(typeof obj[1] == "string") {                // convert single URL string to hyperlink
                 obj[1] = createHyperlinkIfTextIs_an_URL(obj[1]) 
             } else if(obj[1] instanceof Array && obj[1] !== null) {     // if obj[1] is a nested array
                 s = obj[1].toString()

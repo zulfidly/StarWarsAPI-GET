@@ -147,9 +147,14 @@ li {
     height: 25px;
 }
 .root-words-with-results {
+    width: auto;
+    height: 100%;
+    font-size: 16px;
     color: var(--color4);
     font-style: italic;
     cursor: pointer;
+    border-color: transparent;
+    background-color: none;
 }
 .root-words-without-results {
     color: #815B5B;
@@ -198,8 +203,8 @@ tr, td, th {
     bottom: 20px; /* Place the button at the bottom of the page */
     right: 30px; /* Place the button 30px from the right */
     z-index: 99; /* Make sure it does not overlap */
-    border: 1px solid var(--almostBlack); /* Remove borders */
-    outline: none; /* Remove outline */
+    border: 1px solid var(--almostBlack); 
+    /* outline: transparent;   */
     background-color: var(--color4); /* Set a background color */
     color: var(--almostBlack); /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
