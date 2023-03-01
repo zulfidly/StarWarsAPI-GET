@@ -15,14 +15,18 @@ function createButtonForEachRootResources(x) {
     buttons_root.forEach((x) => x.addEventListener("click", listenerAllRootButtons))
 }
 function listenerAllRootButtons(e) {
-        // console.log(e)
-        document.querySelectorAll(".list-all-buttons").forEach((x) => x.removeEventListener("click", listenerAllRootButtons))
+    if(isData_Retrieving_inProgress == false) {
+        isData_Retrieving_inProgress = true
         initUserInfoMessages()
         let endpoint = base_url + e.target.innerHTML
         fetchAPI(printListResource, endpoint, e.target.innerHTML, "")
+    } else if(isData_Retrieving_inProgress == true) {
+        console.log("pineapple")
+    }
 }
 
 function printListResource(d, x, keywordInSearch) {
+    isData_Retrieving_inProgress = true
     console.log(d)
     let t = null
     if(d.next == null && d.previous == null) t = 1  
@@ -69,11 +73,9 @@ function printListResource(d, x, keywordInSearch) {
         card_infobox.innerHTML = result 
 
         if(i+1 == length) {
-            //re-attach listener after previous requested content loaded
-            document.querySelectorAll(".list-all-buttons").forEach((x) => x.addEventListener("click", listenerAllRootButtons))
+            isData_Retrieving_inProgress = false
         }
-    
-}
+    }
     printUserMessage("")
 }
 function createHyperlinkIfTextIs_an_URL(string) {
@@ -91,24 +93,27 @@ function createPrevNextButtonsAccordingly(d, x, keywordInSearch) {
         prevBtn_ctnr.innerHTML = ""
         nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
+            isData_Retrieving_inProgress = true
             fetchAPI(printListResource, d.next, x, keywordInSearch)
-        })
+        }, {once:true})
     } else if(d.next == null && d.previous !== null) {
         prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         nextBtn_ctnr.innerHTML = ""
         document.querySelector("#prevBtn").addEventListener("click", () => {
+            isData_Retrieving_inProgress = true
             fetchAPI(printListResource, d.previous, x, keywordInSearch)
-
-        })
+        }, {once:true})
     } else if(d.next !== null && d.previous !== null) {
         nextBtn_ctnr.innerHTML = `<button id="nextBtn"> Next 10 >>> </button>`
         prevBtn_ctnr.innerHTML = `<button id="prevBtn"> <<< Previous 10 </button>`
         document.querySelector("#nextBtn").addEventListener("click", () => {
+            isData_Retrieving_inProgress = true
             fetchAPI(printListResource, d.next, x, keywordInSearch)
-        })
+        }, {once:true})
         document.querySelector("#prevBtn").addEventListener("click", () => {
+            isData_Retrieving_inProgress = true
             fetchAPI(printListResource, d.previous, x, keywordInSearch)
-        })
+        }, {once:true})
     }
 }
 

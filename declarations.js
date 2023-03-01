@@ -21,4 +21,4 @@ const prevBtn_ctnr = document.querySelector("#prevBtn-ctnr")
 let currentUserInput = ""
 let array_of_Roots_Global = []
 
-
+let isData_Retrieving_inProgress = false
