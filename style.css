@@ -4,8 +4,6 @@
     --color3 : #E9DAC1;
     --color4 : #54BAB9;
     --almostBlack : #161617;
-    --logo-filter-light: invert(0);
-    --logo-filter-dark: invert(1);
     --vt-c-black: #181818;
     --vt-c-black-soft: #222222;
     --vt-c-black-mute: #282828;
@@ -13,6 +11,7 @@
 
     --color-text2: #815B5B;
     --color-text3: #d15b16;
+    --color-sw-dark: #d6550a;
 
     --dot3Width : 6px;
     --dot3Height : var(--dot3Width);
@@ -25,7 +24,7 @@
     --color-border-cell: var(--vt-c-black);
     --color-background-table-odd: var(--color3);
     --color-background-table-even: var(--color2);
-    --logo-filter: var(--logo-filter-light);
+    --logo-fill: var(--vt-c-black-mute);
     --dot3-background-color: var(--vt-c-black);
     --rootwords-text: var(--almostBlack);
 }
@@ -36,7 +35,7 @@
         --color-border-cell: var(--color3);
         --color-background-table-odd: var(--vt-c-indigo);
         --color-background-table-even: var(--vt-c-black-soft);
-        --logo-filter: var(--logo-filter-dark);
+        --logo-fill: var(--color-sw-dark);
         --dot3-background-color: var(--color1);
         --rootwords-text: var(--color-text2);
     }
@@ -79,15 +78,12 @@ body {
 h5, a {
     color: var(--color-text)
 }
-#logo-ctnr {
-    width: 400px;
-    height: auto;
+
+.sw_logo path {
+    fill:var(--logo-fill);
 }
-#logo-ctnr > img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: var(--logo-filter);
+.tapIcon path {
+    fill: var(--color-text);
 }
 .inputForm {
     display: flex;

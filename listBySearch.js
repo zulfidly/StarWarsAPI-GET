@@ -45,7 +45,7 @@ function displaySearchResultSummary(d, r) {
     if(d.count == 0) {
         search_results.innerHTML += `<li> ${d.count} results found for <em>" ${currentUserInput} "</em> in <span class="root-words-without-results">${r}</span> </li>`
     } else {
-        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>" ${currentUserInput} "</em> in <button class="root-words-with-results">${r}</button> </b> &nbsp <img class="tapIcon" src="./tap.png" /> </li>`
+        search_results.innerHTML += `<li class="underline-when-hovered"> <b> ${d.count} results found for <em>" ${currentUserInput} "</em> in <button class="root-words-with-results">${r}</button> </b> &nbsp ${tapIcon} </li>` //<img class="tapIcon" src="./tap.png" />
     }
 
     let buttons = document.querySelectorAll(".root-words-with-results")
